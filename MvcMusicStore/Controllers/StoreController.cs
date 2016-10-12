@@ -30,7 +30,9 @@ namespace MvcMusicStore.Controllers
 
         public ActionResult Browse(string genre)
         {
-            var genreModel = new Genre { Name = genre };
+            //var genreModel = new Genre { Name = genre };
+
+            var genreModel = storeDB.Genres.Include("Albums").Single<Genre>(g => g.Name == genre);
             return View(genreModel);
         }
 
@@ -38,7 +40,7 @@ namespace MvcMusicStore.Controllers
         //Get:Store/Details/5
         public ActionResult Details(int id)
         {
-            var album = new Album { Title = "Album" + id };
+            var album = storeDB.Albums.Find(id);
             return View(album);
         }
 

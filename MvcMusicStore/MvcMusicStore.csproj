@@ -120,6 +120,7 @@
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\StoreManagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -168,6 +169,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Store\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StoreManager\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StoreManager\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StoreManager\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StoreManager\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StoreManager\Create.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
