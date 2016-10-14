@@ -106,6 +106,31 @@ namespace MvcMusicStore.Models
             return total ?? decimal.Zero;
         }
 
+        public int CreateOrder(Order order)
+        {
+            decimal orderTotal = 0;
+            var cartItems = GetCartItems();
+            foreach (var cartItem in cartItems)
+            {
+                var orderDetail = new OrderDetail
+                {
+                    AlbumId = cartItem.AlbumId,
+                    OrderId = order.OrderId,
+                    UnitPrice = cartItem.Album.Price,
+                    Quantity = cartItem.Count
+
+                };
+                orderTotal += (cartItem.Count * cartItem.Album.Price);
+                storeDB.OrderDetails.Add(orderDetail);
+                    
+            }
+
+            order.Total = orderTotal;
+            storeDB.SaveChanges();
+            EmptyCart();
+            return order.OrderId;
+        }
+
         private string GetCartId(HttpContextBase context)
         {
             if (context.Session[CartSessionKey] == null)
@@ -121,6 +146,16 @@ namespace MvcMusicStore.Models
                 }
             }
             return context.Session[CartSessionKey].ToString();
+        }
+
+        public void MigrateCart(string username)
+        {
+            var shoppingCart = storeDB.Carts.Where(cart => cart.CartId == ShoppingCartId);
+            foreach (var cart in shoppingCart)
+            {
+                cart.CartId = username;
+            }
+            storeDB.SaveChanges();
         }
     }
 }
